@@ -53,6 +53,10 @@ const Login = () => {
       .then((res) => {
         console.log("ressssss", res.data.data.verified);
                    navigate("/");
+                   
+localStorage.setItem("user", JSON.stringify(res.data.data));
+localStorage.setItem('adminId',res.data.data._id)
+
 
       })
       .catch((error) => {

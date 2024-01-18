@@ -13,6 +13,7 @@ import ListProduct from './views/home/products/ListProduct';
 import UpdateProducts from './views/home/products/UpdateProduct';
 import Login from './views/login/Login';
 import Register from './views/Register/Register';
+import AdProfile from './views/home/AdminProfile/AdProfile';
 function App() {
   return (
     <>
@@ -34,11 +35,13 @@ function App() {
             <Route path="/addProduct" element={<AddProduct />} />
             <Route path="/ListProduct" element={<ListProduct />} />
             <Route path="/UpdateProduct/:id" element={<UpdateProducts />} />
+
+            <Route path="/adProfile/:id" element={<AdProfile />} />
           </Route>
           {/* End Home  components and paths  */}
 
-           <Route path="/login" element={<Login />} />
-           <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
         </Routes>
       </BrowserRouter>
     </>

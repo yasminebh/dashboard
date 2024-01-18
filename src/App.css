@@ -1,3 +1,32 @@
+
+.bloc2 {
+  margin-top: 7rem;
+}
+/* .modalcssx{
+  width: 800px;
+  height: 800px;
+  z-index: 1;
+  margin: 250px 550px 400px 200px;
+background: #000;
+} */
+.modalcssx {
+  position: absolute;
+  inset: 40px;
+  border: 3px solid rgb(204, 204, 204);
+  /* overflow: auto; */
+  border-radius: 4px;
+  outline: none;
+  width: 58%;
+  margin: auto;
+  z-index: 9999999999;
+  margin-top: 8rem;
+  text-align: left;
+  box-shadow: -2px 1px 21px -7px rgba(0, 0, 0, 0.75);
+  border-radius: 25px;
+  background-color: white;
+}
+
+ 
 select {
   word-wrap: normal;
   display: block;

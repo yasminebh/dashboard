@@ -113,6 +113,21 @@ const SideBar = () => {
             <span>product List</span>
           </Link>
         </li>
+
+        <div className="sidebar-heading mt-4"> edit profile</div>
+        <li className="nav-item">
+          <Link
+            className="nav-link collapsed"
+            to="/adProfile"
+            data-toggle="collapse"
+            data-target="#collapseBootstrap"
+            aria-expanded="true"
+            aria-controls="collapseBootstrap"
+          >
+            <i className="far fa-fw fa-window-maximize" />
+            <span>edit profile</span>
+          </Link>
+        </li>
         <hr className="sidebar-divider" />
         <div className="version" id="version-ruangadmin" />
       </ul>

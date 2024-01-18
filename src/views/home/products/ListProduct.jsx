@@ -8,7 +8,8 @@ import { TbPencilUp } from "react-icons/tb";
 import { MdDeleteForever } from "react-icons/md";
 import { TbListDetails } from "react-icons/tb";
 import ModalDetails from "../../../components/ModalDetails";
-
+import Modal from "react-modal";
+import './styles.css'
 //product modal todo
 
 const ListProduct = () => {
@@ -16,17 +17,18 @@ const ListProduct = () => {
 
   const [search, setSearch] = useState();
 
-/*   const [selectedProduct, setSelectedProduct] = useState(null);
+  const [selectedProduct, setSelectedProduct] = useState(null);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
 
-  const openModal = (data) => {
-    setSelectedProduct(data);
+   const openModal = (item) => {
+     setSelectedProduct(item);
+    setModalIsOpen(true);
+
   };
   const closeModal = () => {
-    setSelectedProduct(null);
-  }; */
+    setModalIsOpen(false);
+         setSelectedProduct(null);
 
-  let InputHandler = (e) => {
-    setSearch(e.target.value.toLowerCase());
   };
 
   const filterData = data?.filter((d) => {
@@ -36,6 +38,9 @@ const ListProduct = () => {
       return d.name.toLowerCase().includes(search);
     }
   });
+  let InputHandler = (e) => {
+    setSearch(e.target.value.toLowerCase());
+  };
 
   const getAll = () => {
     productContext
@@ -47,22 +52,22 @@ const ListProduct = () => {
       .catch((err) => console.log("error", err));
   };
 
-  // const onClickHandler = () => {};
+  const onClickHandler = () => {};
 
-  // const getOneProduct = (id) => {
+  // const getOneProduct = () => {
   //   productContext
-  //     .getById(id)
+  //     .getById(item)
   //     .then((res) => {
   //       console.log(res);
-  //      /*  setSelectedProduct(res.data.data); */
+  //       setSelectedProduct(res.data.data);
   //     })
   //     .catch((error) => console.log(error));
-  //   console.log(id);
+  //   //console.log(id);
   // };
 
   useEffect(() => {
     getAll();
-    //  getOneProduct(data.id)
+    //getOneProduct(data.id);
   }, []); // liste de dependence
 
   const removeData = (id) => {
@@ -128,7 +133,7 @@ const ListProduct = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {filterData.map((item, index) => {
+                    {data.map((item, index) => {
                       return (
                         <tr key={index}>
                           <td>
@@ -173,11 +178,22 @@ const ListProduct = () => {
                                 padding: "5px",
                                 opacity: "0.3",
                               }}
-                              // onClick={() => openModal(item)}
+                              onClick={() => openModal(item)}
                             >
                               <TbListDetails />
                             </button>
-
+                            <Modal className="modalcssx"
+                              isOpen={modalIsOpen}
+                              onRequestClose={closeModal}
+                              contentLabel="Exemple de Modal"
+                            >
+                              {selectedProduct && (
+                                <ModalDetails
+                                  closeModal={closeModal}
+                                  item={selectedProduct}
+                                />
+                              )}
+                            </Modal>
                             <button
                               style={{
                                 border: "none",
@@ -222,9 +238,7 @@ const ListProduct = () => {
         </div>
         {/*Row*/}
       </div>
-{/*       {selectedProduct && (
-        <ModalDetails item={selectedProduct} onClose={closeModal} />
-      )} */}
+   
     </>
   );
 };

@@ -11,7 +11,7 @@ const getById = (id) => {
   return http.get(`/admin/${id}`);
 };
 
-const update = (id, data) => {
+const updateAd = (id, data) => {
   return http.put(`/admin/${id}`, data);
 };
 
@@ -24,4 +24,4 @@ const remove = (id) => {
 };
 
 // eslint-disable-next-line import/no-anonymous-default-export
-export default { create, list, validateAdmin, getById, update, remove };
+export default { create, list, validateAdmin, getById, updateAd, remove };
