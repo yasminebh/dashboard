@@ -18,23 +18,24 @@ const OnChangeHandler = (e) => {
   console.log(data?.fullName)
 }
 
-const onSubmitHandler = (e) => {
-  e.preventDefault()
-  updateAdmin()
-}
+// const onSubmitHandler = async (e) => {
+//   e.preventDefault()
+// await  updateAdmin()
+// }
 
 const getAdminData = () => {
   adminContext.getById(id).then((res)=> {console.log(res.data.data); setData(res.data.data)} ).catch((err)=> console.log(err))
 }
-const updateAdmin = () => {
+const onSubmitHandler = (e) => {
+  e.preventDefault()
   adminContext
     .updateAd(id, data)
     .then((res) => {
       console.log(res.data.data);
-      // setData(res.data.data);
+      setData(res.data.data);
     })
     .catch((err) => console.log(err));
-}
+};
  
 useEffect(() => {
    getAdminData();
