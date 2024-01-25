@@ -1,47 +1,43 @@
 import React, { useEffect, useState } from "react";
 import adminContext from "../../../services/adminContext";
+import axios from "axios";
 
 const AdProfile = () => {
+  const [data, setData] = useState({});
+  console.log("yess", data);
+  const id = localStorage.getItem("adminId");
+  const token = localStorage.getItem("token");
+  const user = JSON.parse(localStorage.getItem("user"));
+  console.log(user.fullName);
 
-  const [data, setData] = useState({})
-  console.log(data)
-const id = localStorage.getItem("adminId");
-console.log("admin id ",id)
- 
-const OnChangeHandler = (e) => {
-  const { name, value } = e.target;
-  setData((prevData) => ({
-    ...prevData,
-    [name]: value,
-  }));
-  console.log(data)
-  console.log(data?.fullName)
-}
+  console.log("admin id ", id);
 
-// const onSubmitHandler = async (e) => {
-//   e.preventDefault()
-// await  updateAdmin()
-// }
+  const OnChangeHandler = (e) => {
+    setData(() => ({
+      ...data,
+      [e.target.name]: e.target.value,
+    }));
+    console.log("data", data);
+    console.log(data?.fullName);
+  };
 
-const getAdminData = () => {
-  adminContext.getById(id).then((res)=> {console.log(res.data.data); setData(res.data.data)} ).catch((err)=> console.log(err))
-}
-const onSubmitHandler = (e) => {
-  e.preventDefault()
-  adminContext
-    .updateAd(id, data)
-    .then((res) => {
-      console.log(res.data.data);
-      setData(res.data.data);
-    })
-    .catch((err) => console.log(err));
-};
- 
-useEffect(() => {
-   getAdminData();
-}, [])
-
-
+  const onSubmitHandler = (e) => {
+    e.preventDefault();
+    const xx = axios
+      .put(`http://localhost:5000/admin/${id}`, data, {
+        headers: {
+          authorization: `${token}`,
+        },
+      })
+      .then((res) => {
+        console.log("testt", res);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(console.log("first"));
+    console.log(xx);
+  };
 
   return (
     <>
@@ -71,9 +67,8 @@ useEffect(() => {
                     <input
                       type="text"
                       className="form-control"
-                      placeholder="fullName"
+                      placeholder={user?.fullName}
                       name="fullName"
-                      value={data?.fullName}
                       onChange={OnChangeHandler}
                     />
                   </div>
@@ -84,9 +79,8 @@ useEffect(() => {
                     <input
                       type="email"
                       className="form-control"
-                      placeholder="enter address line 2"
+                      placeholder={user?.email}
                       name="email"
-                      value={data?.email}
                       onChange={OnChangeHandler}
                     />
                   </div>
@@ -95,9 +89,8 @@ useEffect(() => {
                     <input
                       type="text"
                       className="form-control"
-                      placeholder="enter phone number"
+                      placeholder={user?.phone}
                       name="phone"
-                      value={data?.phone}
                       onChange={OnChangeHandler}
                     />
                   </div>

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import auth from "../../services/auth";
 import Swal from "sweetalert2";
 import { Link, Navigate, useNavigate } from "react-router-dom";
+import Register from "../Register/Register";
 
 const Login = () => {
   const [data, setData] = useState({
@@ -56,7 +57,7 @@ const Login = () => {
                    
 localStorage.setItem("user", JSON.stringify(res.data.data));
 localStorage.setItem('adminId',res.data.data._id)
-
+localStorage.setItem('token', res.data.accessToken)
 
       })
       .catch((error) => {
@@ -148,12 +149,20 @@ localStorage.setItem('adminId',res.data.data._id)
                       </form>
                       <hr />
                       <div className="text-center">
-                        <a
+                        <Link
                           className="font-weight-bold small"
-                          href="register.html"
+                          to={"/register"}
                         >
                           Create an Account!
-                        </a>
+                        </Link>
+                      </div>
+                      <div className="text-center">
+                        <Link
+                          className="font-weight-bold small"
+                          to={"/forgetpassword"}
+                        >
+                          Forget Password!
+                        </Link>
                       </div>
                       <div className="text-center"></div>
                     </div>

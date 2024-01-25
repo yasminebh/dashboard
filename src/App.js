@@ -14,6 +14,9 @@ import UpdateProducts from './views/home/products/UpdateProduct';
 import Login from './views/login/Login';
 import Register from './views/Register/Register';
 import AdProfile from './views/home/AdminProfile/AdProfile';
+import ForgetPassword from './views/home/forgetPassword/ForgetPassword';
+import ResetPassword from './views/home/forgetPassword/ResetPassword';
+import ListAdmin from './views/home/adminManagement/ListAdmin';
 function App() {
   return (
     <>
@@ -42,6 +45,9 @@ function App() {
 
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/forgetpassword" element={<ForgetPassword />} />
+          <Route path="/user/resetPassword/:token" element={<ResetPassword />} />
+          <Route path="/listAdmin" element={<ListAdmin />} />
         </Routes>
       </BrowserRouter>
     </>

@@ -1,25 +1,58 @@
-import React, { useEffect, useState } from 'react'
-import Bread from '../../../components/Bread';
-import { Link } from 'react-router-dom';
-import adminContext from '../../../services/adminContext';
+import React, { useEffect, useState } from "react";
+import Bread from "../../../components/Bread";
+import { Link } from "react-router-dom";
+import adminContext from "../../../services/adminContext";
 
 const ListAdmin = () => {
+  const [data, setData] = useState([]);
+  console.log(data);
+  //searching
+  const InputHandler = () => {};
 
-const [data, setData] = useState({})
+  const ValidateAd = async (adminId) => {
+    adminContext
+      .validateAdmin(adminId)
+      .then((res) => {
+        console.log(res);
+        console.log(res.data.data.isAccepted);
 
+        const updateAdmins = data.map((ad) =>
+          ad._id === adminId ? { ...ad, isAccepted: true } : ad
+        );
+        setData(updateAdmins);
+      })
 
-const InputHandler = () => {
+      .catch((err) =>
+        console.error("Erreur lors de la validation de l'administrateur", err)
+      );
+  };
 
-}
+  const removeData = async (adminId) => {
+    try {
+      await adminContext.remove(adminId).then((res) => {
+        console.log(res.data);
+        const updatedAdmins = data.filter((admin) => admin._id !== adminId);
+        setData(updatedAdmins);
+      });
+    } catch (error) {
+      console.error("Erreur lors de la suppression de l'administrateur", error);
+    }
+  };
 
-const handleOnclick = () => {
-
-}
-
-
-useEffect(() => {
-  adminContext.list().then((res)=> console.log("res", res)).catch((error)=> console.log(error))
-}, [])
+  const fetchData = async () => {
+    await adminContext
+      .list()
+      .then((res) => {
+        console.log(res.data.data[0].isAccepted);
+        setData(res.data.data);
+        const newtest=  res.data.data.map((test)=>console.log(test.isAccepted) );
+      })
+      .catch((error) => console.log(error));
+  };
+  useEffect(() => {
+    fetchData();
+    console.log(fetchData);
+  }, []);
 
   return (
     <>
@@ -55,20 +88,17 @@ useEffect(() => {
                     </tr>
                   </thead>
                   <tbody>
-                    {data.map((item, index) => {
+                    {data?.map((item, index) => {
                       return (
                         <tr key={index}>
-                          <td>
-                            <a href="#">{item._id}</a>
-                          </td>
+                          <td>{item._id}</td>
                           <td>{item.fullName}</td>
                           <td>{item.email}</td>
-
                           <td>{item.phone}</td>
-                          <td>{item.isAccepted}</td>
+                          <td>{item.isAccepted} ,gjghjg </td>
                           <td>
                             <button
-                              onClick={handleOnclick}
+                              onClick={() => ValidateAd(item._id)}
                               className="btn btn-sm btn-primary mr-2"
                             >
                               Accept
@@ -94,6 +124,6 @@ useEffect(() => {
       </div>
     </>
   );
-}
+};
 
-export default ListAdmin
+export default ListAdmin;

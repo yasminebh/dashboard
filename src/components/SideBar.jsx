@@ -1,7 +1,9 @@
 import React from 'react'
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
 const SideBar = () => {
+   const id = localStorage.getItem("adminId");
+
   return (
     <>
       {/* Sidebar */}
@@ -118,7 +120,7 @@ const SideBar = () => {
         <li className="nav-item">
           <Link
             className="nav-link collapsed"
-            to="/adProfile"
+            to={`/adProfile/${id}`}
             data-toggle="collapse"
             data-target="#collapseBootstrap"
             aria-expanded="true"
